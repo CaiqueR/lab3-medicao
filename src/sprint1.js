@@ -25,21 +25,10 @@ async function resposta1() {
                   ... on Repository {
                     nameWithOwner
                     createdAt
-                    languages(orderBy: {field: SIZE, direction: DESC}, first: 1) {
-                      totalSize
-                      totalCount
-                      edges {
-                        size
-                        node {
-                          name
-                        }
-                      }
-                    }
                     stargazers {
                       totalCount
                     }
                     url
-                    sshUrl
                   }
                 }
                 pageInfo {
