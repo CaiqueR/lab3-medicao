@@ -13,6 +13,18 @@ top-100 repositórios Python, bem como os scripts de coleta utilizados para mine
 
 <br />
 
+## Resultados
+
+Os arquivos CSV gerados se encontram na pasta csv. <br />
+São eles:
+
+```
+java.csv
+python.csv
+```
+
+<br />
+
 ## Execução
 
 Para executar o projeto é necessário ter o NodeJS instalado.
