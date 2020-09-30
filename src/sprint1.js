@@ -4,6 +4,7 @@ const { Headers } = require("node-fetch");
 const converter = require("json-2-csv");
 const fs = require("fs");
 const axios = require("axios").default;
+const { DateTime } = require("luxon");
 
 require("dotenv").config();
 
@@ -20,7 +21,7 @@ async function resposta1() {
       {
         query: `
           query {
-            search(type: REPOSITORY query: "stars:>500 language:${repoParaBuscar}" first: 100) {
+            search(type: REPOSITORY query: "stars:>1000 language:${repoParaBuscar}" first: 100) {
                 nodes {
                   ... on Repository {
                     nameWithOwner
@@ -29,6 +30,9 @@ async function resposta1() {
                       totalCount
                     }
                     url
+                    releases {
+                      totalCount
+                    }
                   }
                 }
                 pageInfo {
@@ -52,7 +56,35 @@ async function resposta1() {
       search: { nodes },
     } = result.data;
 
-    repos = [...repos, ...nodes];
+    const newNodes = nodes.map((node) => {
+      const {
+        createdAt,
+        releases: { totalCount },
+      } = node;
+
+      const date = DateTime.fromISO(createdAt)
+        .setZone("America/Sao_Paulo")
+        .setLocale("pt-BR");
+
+      const currentDate = DateTime.local()
+        .setZone("America/Sao_Paulo")
+        .setLocale("pt-BR");
+
+      const { days: dateOfCreationInDays } = currentDate
+        .diff(date, ["days"])
+        .toObject();
+
+      const newNo = {
+        ...node,
+        totalReleases: totalCount,
+        mediaReleaseDays: totalCount / dateOfCreationInDays,
+      };
+
+      delete newNo.releases;
+      return newNo;
+    });
+
+    repos = [...repos, ...newNodes];
 
     converter.json2csv(repos, (err, csv) => {
       if (err) {
