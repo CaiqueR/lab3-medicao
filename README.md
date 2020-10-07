@@ -13,14 +13,20 @@ top-100 repositórios Python, bem como os scripts de coleta utilizados para mine
 
 <br />
 
-## Resultados
+## Sprint 2
+
+Entregar mineração dos repositórios populares Python (.csv com os valores de todas as métricas dos top-100 repositórios, bem como os scripts de coleta utilizados para mineração e análise dos repositórios)
+
+<br />
+
+## Resultados Sprint 2
 
 Os arquivos CSV gerados se encontram na pasta csv. <br />
 São eles:
 
 ```
-java.csv
-python.csv
+javaSLOC.csv = CSV contendo a quantidade de SLOC, LOC e comentários em Java
+pythonSLOC.csv = CSV contendo a quantidade de SLOC, LOC e comentários em Python
 ```
 
 <br />
@@ -44,4 +50,6 @@ node src/sprint1.js
 
 Com isso será gerado o csv na raíz do projeto.
 
-O código fonte pode ser encontrado em `src/sprint1.js` e o CSV pode ser encontrado em nas pasta `csv`
+## Código fonte
+
+O código fonte pode ser encontrado em `src/sprint2.js` e o CSV pode ser encontrado em nas pasta `csv`
